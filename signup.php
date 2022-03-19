@@ -1,54 +1,57 @@
 <?php
-session_start();
-include 'db/connection.php';
+require_once "db/connection.php";
+$nameerror = $emailerror = $passworderror = $passwordwrong = $cityempty = "";
+$addressempty = $stateempty = $pincodeempty = $name = $email = $password = $confirmpassword = $address = "";
+$city = $pincode = $state = "";
 
-$nameerror = "";
-$emailerror = "";
-$passworderror = "";
-$passwordwrong = "";
-$cityempty = "";
-$addressempty = "";
-$stateempty = "";
-$pincodeempty = "";
-$name = "";
-$email = "";
-$password = "";
-$confirmpassword = "";
-$address = "";
-$city = "";
-$pincode = "";
-$state = "";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-
-if (isset($_POST['signup'])) {
-    
     $error = 0;
-
-    $name = mysqli_real_escape_string($db, $_POST['name']);
-    $email = mysqli_real_escape_string($db, $_POST['email']);
-    $password = mysqli_real_escape_string($db, $_POST['password']);
-    $confirmpassword = mysqli_real_escape_string($db, $_POST['confirmpassword']);
     $address = mysqli_real_escape_string($db, $_POST['address']);
     $city = mysqli_real_escape_string($db, $_POST['city']);
     $pincode = mysqli_real_escape_string($db, $_POST['pincode']);
     $state = mysqli_real_escape_string($db, $_POST['state']);
 
-    if (empty($name)) {
-        $nameerror = "Username is required";
+    if (empty(trim($_POST["email"]))) {
         $error = 1;
-    }
-    if (empty($email)) {
-        $emailerror = "Email is required";
+        $emailerror = "Please enter your email";
+    } else if (!preg_match('/^([a-zA-Z0-9\.]+@+[a-zA-Z]+(\.)+[a-zA-Z]{2,3})$/', trim($_POST["email"]))) {
         $error = 1;
-    }
-    if (empty($password)) {
-        $passworderror = "Password is required";
+        $emailerror = "Invalid Email";
+    } else if (empty(trim($_POST["name"]))) {
         $error = 1;
-    }
-    if ($password != $confirmpassword) {
-        $passwordwrong = "Passwords do not match";
+        $nameerror = "Please enter a username.";
+    } elseif (!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["name"]))) {
         $error = 1;
+        $nameerror = "Name can only contain letters, numbers, and underscores.";
+    } else {
+        $sql = "SELECT cid FROM customer WHERE cemail = ?";
+
+        if ($stmt = mysqli_prepare($db, $sql)) {
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "s", $param_username);
+            // Set parameters
+            $param_username = trim($_POST["email"]);
+            // Attempt to execute the prepared statement
+            if (mysqli_stmt_execute($stmt)) {
+                /* store result */
+                mysqli_stmt_store_result($stmt);
+
+                if (mysqli_stmt_num_rows($stmt) == 1) {
+                    $error = 1;
+                    $emailerror = "This email is already taken.";
+                } else {
+                    $email = trim($_POST["email"]);
+                    $name = trim($_POST["name"]);
+                }
+            } else {
+                $error = 1;
+            }
+            // Close statement
+            mysqli_stmt_close($stmt);
+        }
     }
+
     if (empty($city)) {
         $cityempty = "City is required";
         $error = 1;
@@ -66,30 +69,42 @@ if (isset($_POST['signup'])) {
         $error = 1;
     }
 
-    $user_check_query = "SELECT * FROM customer WHERE cemail='$email' LIMIT 1";
-    $result = mysqli_query($db, $user_check_query);
-    $user = mysqli_fetch_assoc($result);
+    // Validate password
+    if (empty(trim($_POST["password"]))) {
+        $error = 1;
+        $passworderror = "Please enter a password.";
+    } elseif (strlen(trim($_POST["password"])) < 6) {
+        $error = 1;
+        $passworderror = "Password must have atleast 6 characters.";
+    } else {
+        $password = trim($_POST["password"]);
+    }
 
-    if ($user) { // if user exists
-        if ($user['cemail'] === $email) {
-            $emailerror = "Email already exists";
+    // Validate confirm password
+    if (empty(trim($_POST["confirmpassword"]))) {
+        $error = 1;
+        $passwordwrong = "Please confirm password.";
+    } else {
+        $confirmpassword = trim($_POST["confirmpassword"]);
+        if (empty($password_err) && ($password != $confirmpassword)) {
             $error = 1;
+            $passwordwrong = "Password did not match.";
         }
     }
 
+    // Check input errors before inserting in database
     if ($error == 0) {
-        $password = md5($password); //encrypt the password before saving in the database
 
+        $password = md5($password);
         $query = "INSERT INTO customer (cname,cemail,cpassword,ccity,caddress,cstate,cpincode) 
                   VALUES('$name','$email','$password','$city','$address','$state','$pincode')";
         mysqli_query($db, $query);
-        $_SESSION['cemail'] = $email;
-        $_SESSION['start'] = true;
-        header('location: home.php');
+        header('location: login.php');
     }
+
+    // Close connection
+    mysqli_close($db);
 }
-
-
 ?>
 
 
@@ -184,7 +199,7 @@ if (isset($_POST['signup'])) {
                                         <h4 class="mt-1 mb-5 pb-1">CityAtDoor Login</h4>
                                     </div>
 
-                                    <form action="" method="post">
+                                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                                         <p>General Information</p>
 
                                         <div class="form-outline mb-4">

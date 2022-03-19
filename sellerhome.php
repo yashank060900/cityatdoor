@@ -1,11 +1,9 @@
 <?php
-
-session_start(); 
-
-  if (!isset($_SESSION['semail'])) {
-  	header('location: index.html');
-  }
-
+session_start();
+if(!isset($_SESSION["s_loggedin"]) || $_SESSION["s_loggedin"] !== true){
+    header("location: sellerlogin.php");
+    exit;
+}
 ?>
 
 <!DOCTYPE html>

@@ -1,46 +1,85 @@
 <?php
-
 session_start();
-include 'db/connection.php';
+if(isset($_SESSION["s_loggedin"]) && $_SESSION["s_loggedin"] === true){
+    header("location: sellerhome.php");
+    exit;
+}
+require_once "db/connection.php";
 
-$emailerror = "";
-$passworderror = "";
-$errormsg = "";
-$email = "";
+$password = $email = "";
+$emailerror = $passworderror = $errormsg = "";
 
-if (isset($_POST['login'])) {
-
-    $error = 0;
-
-    $email = mysqli_real_escape_string($db, $_POST['email']);
-    $password = mysqli_real_escape_string($db, $_POST['password']);
-
-
-    if (empty($email)) {
-        $emailerror = "Email is required";
-        $error = 1;
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+ 
+    if(empty(trim($_POST["email"]))){
+        $emailerror = "Please enter email.";
+    } else{
+        $email = trim($_POST["email"]);
     }
-    if (empty($password)) {
-        $passworderror = "Password is required";
-        $error = 1;
+    
+    // Check if password is empty
+    if(empty(trim($_POST["password"]))){
+        $passworderror = "Please enter your password.";
+    } else{
+        $password = trim($_POST["password"]);
     }
+    
+    // Validate credentials
+    if(empty($emailerror) && empty($passworderror)){
+        // Prepare a select statement
+        $sql = "SELECT sid,semail,spassword FROM seller WHERE semail = ?";
+        
+        if($stmt = mysqli_prepare($db, $sql)){
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "s", $param_username);
+            
+            // Set parameters
+            $param_username = $email;
+            
+            // Attempt to execute the prepared statement
+            if(mysqli_stmt_execute($stmt)){
+                // Store result
+                mysqli_stmt_store_result($stmt);
+                
+                // Check if username exists, if yes then verify password
+                if(mysqli_stmt_num_rows($stmt) == 1){                    
+                    // Bind result variables
+                    mysqli_stmt_bind_result($stmt, $id, $email, $verifyPassword);
 
-    if ($error == 0) {
+                    if(mysqli_stmt_fetch($stmt)){
+                        $password = md5($password);
+                        if($verifyPassword == $password){
+                            // Password is correct, so start a new session
+                            session_start();
+                            
+                            // Store data in session variables
+                            $_SESSION["s_loggedin"] = true;
+                            $_SESSION["sid"] = $id;
+                            $_SESSION["semail"] = $email;                            
+                            
+                            // Redirect user to welcome page
+                            header("location: sellerhome.php");
+                        } else{
+                            // Password is not valid, display a generic error message
+                            $errormsg = "Invalid email or password.";
+                        }
+                    }
+                } else{
+                    // Username doesn't exist, display a generic error message
+                    $errormsg = "Invalid email or password.";
+                }
+            } else{
+                $errormsg =  "Oops! Something went wrong. Please try again later.";
+            }
 
-        $password = md5($password); //encrypt the password before saving in the database
-
-        $query = "SELECT * FROM seller WHERE semail = '$email' AND spassword = '$password'";
-        $result = mysqli_query($db, $query);
-        if (mysqli_num_rows($result) == 1) {
-            $_SESSION['semail'] = $email;
-            $_SESSION['start'] = true;
-            header('location: sellerhome.php');
-        } else {
-            $errormsg = "Something went wrong !";
+            // Close statement
+            mysqli_stmt_close($stmt);
         }
     }
+    
+    // Close connection
+    mysqli_close($db);
 }
-
 ?>
 
 
@@ -135,7 +174,7 @@ if (isset($_POST['login'])) {
                                         <h4 class="mt-1 mb-5 pb-1">We are The Lotus Team</h4>
                                     </div>
 
-                                    <form action="" method="post">
+                                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                                         <p>Please login to your account</p>
 
                                         <div class="form-outline mb-4">

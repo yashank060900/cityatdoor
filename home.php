@@ -1,3 +1,10 @@
+<?php
+session_start();
+if(!isset($_SESSION["c_loggedin"]) || $_SESSION["c_loggedin"] !== true){
+    header("location: login.php");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,17 +60,14 @@
                 </div>
             </li>
 
-            <li><a href="login.php">Login</a></li>
-            <li><a href="signup.php">Signup</a></li>
-            <li><a href="sellerlogin.php">Seller Login</a></li>
-            <li style="border-bottom: 1px solid whitesmoke;"><a href="sellersignup.php">Seller Signup</a></li>
             <li><a href="aboutus.php">About Us</a></li>
             <li><a href="policyandprivacy.php">Policy & Privacy</a></li>
             <li style="border-bottom: 1px solid whitesmoke;"><a href="contactus.php">Contact Us</a></li>
             <li>Connect with us</li>
             <li><a href="" class="center"><img src="https://img.icons8.com/fluency/22/000000/facebook-new.png"/>Facebook</a></li>
             <li><a href="" class="center"><img src="https://img.icons8.com/color/22/000000/twitter--v1.png"/>Twitter</a></li>
-            <li><a href="" class="center"><img src="https://img.icons8.com/color/22/000000/linkedin.png"/>LinkedIn</a></li>
+            <li style="border-bottom: 1px solid whitesmoke;"><a href="" class="center"><img src="https://img.icons8.com/color/22/000000/linkedin.png"/>LinkedIn</a></li>
+            <li><a href="logout.php" class="center">Logout</a></li>
         </ul>
     </div>
 

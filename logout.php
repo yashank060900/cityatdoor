@@ -1,6 +1,7 @@
-<?php 
+<?php
+session_start();
+$_SESSION = array();
 session_destroy();
-unset($_SESSION['semail']);
-unset($_SESSION['cemail']);
 header("location: index.html");
+exit;
 ?>
