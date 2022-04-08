@@ -126,15 +126,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CityAtDoor</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/login.css">
     <style>
-        .b {
-            border: 1px solid red;
-        }
+    .b {
+        border: 1px solid red;
+    }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
@@ -156,8 +157,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </ul>
         <ul class="nav-icons">
             <li><img src="https://img.icons8.com/ios/25/ffffff/like--v1.png" /></li>
-            <li><img src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/25/ffffff/external-cart-supermarket-flatart-icons-outline-flatarticons.png" /></li>
-            <li><img src="https://img.icons8.com/external-xnimrodx-lineal-xnimrodx/25/ffffff/external-bell-event-and-party-xnimrodx-lineal-xnimrodx.png" /></li>
+            <li><img
+                    src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/25/ffffff/external-cart-supermarket-flatart-icons-outline-flatarticons.png" />
+            </li>
+            <li><img
+                    src="https://img.icons8.com/external-xnimrodx-lineal-xnimrodx/25/ffffff/external-bell-event-and-party-xnimrodx-lineal-xnimrodx.png" />
+            </li>
         </ul>
         <div class="icon open-dropdown" id="open-dropdown">
             <img src="img/bootstrap-solid.svg" width="30" alt="">
@@ -180,9 +185,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <li><a href="policyandprivacy.php">Policy & Privacy</a></li>
             <li style="border-bottom: 1px solid whitesmoke;"><a href="contactus.php">Contact Us</a></li>
             <li>Connect with us</li>
-            <li><a href="" class="center"><img src="https://img.icons8.com/fluency/22/000000/facebook-new.png" />Facebook</a></li>
-            <li><a href="" class="center"><img src="https://img.icons8.com/color/22/000000/twitter--v1.png" />Twitter</a></li>
-            <li><a href="" class="center"><img src="https://img.icons8.com/color/22/000000/linkedin.png" />LinkedIn</a></li>
+            <li><a href="" class="center"><img
+                        src="https://img.icons8.com/fluency/22/000000/facebook-new.png" />Facebook</a></li>
+            <li><a href="" class="center"><img
+                        src="https://img.icons8.com/color/22/000000/twitter--v1.png" />Twitter</a></li>
+            <li><a href="" class="center"><img src="https://img.icons8.com/color/22/000000/linkedin.png" />LinkedIn</a>
+            </li>
         </ul>
     </div>
 
@@ -206,31 +214,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <h4 class="mt-1 mb-5 pb-1">CityAtDoor Seller Registration</h4>
                                     </div>
 
-                                    <form action="" method="post">
+                                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                                         <p>General Information</p>
 
                                         <div class="form-outline mb-4">
                                             <label class="form-label" for="form2Example11">Name:</label>
-                                            <input type="text" id="form2Example11" name="name" class="form-control" placeholder="Your name" value="<?php echo $name; ?>" />
-                                            <span style="color: red; font-weight : 500; font-size:14px;"><?php echo $nameerror ?></span>
+                                            <input type="text" id="form2Example11" name="name" class="form-control"
+                                                placeholder="Your name" value="<?php echo $name; ?>" />
+                                            <span
+                                                style="color: red; font-weight : 500; font-size:14px;"><?php echo $nameerror ?></span>
                                         </div>
 
                                         <div class="form-outline mb-4">
                                             <label class="form-label" for="form2Example11">Email:</label>
-                                            <input type="email" id="form2Example11" name="email" class="form-control" placeholder="Email address" value="<?php echo $email; ?>" />
-                                            <span style="color: red; font-weight : 500; font-size:14px;"><?php echo $emailerror ?></span>
+                                            <input type="email" id="form2Example11" name="email" class="form-control"
+                                                placeholder="Email address" value="<?php echo $email; ?>" />
+                                            <span
+                                                style="color: red; font-weight : 500; font-size:14px;"><?php echo $emailerror ?></span>
                                         </div>
 
                                         <div class="form-outline mb-4">
                                             <label class="form-label" for="form2Example22">Create Password:</label>
-                                            <input type="password" name="password" id="form2Example22" class="form-control" />
-                                            <span style="color: red; font-weight : 500; font-size:14px;"><?php echo $passworderror ?></span>
+                                            <input type="password" name="password" id="form2Example22"
+                                                class="form-control" />
+                                            <span
+                                                style="color: red; font-weight : 500; font-size:14px;"><?php echo $passworderror ?></span>
                                         </div>
 
                                         <div class="form-outline mb-4">
                                             <label class="form-label" for="form2Example22">Confirm Password:</label>
-                                            <input type="password" name="confirmpassword" id="form2Example22" class="form-control" />
-                                            <span style="color: red; font-weight : 500; font-size:14px;"><?php echo $passwordwrong ?></span>
+                                            <input type="password" name="confirmpassword" id="form2Example22"
+                                                class="form-control" />
+                                            <span
+                                                style="color: red; font-weight : 500; font-size:14px;"><?php echo $passwordwrong ?></span>
                                         </div>
                                 </div>
                             </div>
@@ -241,26 +257,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="form2Example11">Shop Name:</label>
-                                        <input type="text" id="form2Example11" name="shopname" class="form-control" value="<?php echo $shopname; ?>" />
-                                        <span style="color: red; font-weight : 500; font-size:14px;"><?php echo $shopnameerror ?></span>
+                                        <input type="text" id="form2Example11" name="shopname" class="form-control"
+                                            value="<?php echo $shopname; ?>" />
+                                        <span
+                                            style="color: red; font-weight : 500; font-size:14px;"><?php echo $shopnameerror ?></span>
                                     </div>
 
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="form2Example22">Shop Type:</label>
                                         <select class="form-control" name="shoptype" type="">
-                                            <option selected value="<?php echo $shoptype; ?>"><?php echo $shoptype; ?></option>
+                                            <option selected value="<?php echo $shoptype; ?>"><?php echo $shoptype; ?>
+                                            </option>
                                             <option value="Grocery">Grocery</option>
                                             <option value="Garments">Garments</option>
                                             <option value="Stationary">Stationary</option>
                                             <option value="Footwear">Footwear</option>
                                         </select>
-                                        <span style="color: red; font-weight : 500; font-size:14px;"><?php echo $shoptypeerror ?></span>
+                                        <span
+                                            style="color: red; font-weight : 500; font-size:14px;"><?php echo $shoptypeerror ?></span>
                                     </div>
 
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="form2Example11">Address:</label>
-                                        <input type="text" id="form2Example11" name="address" class="form-control" value="<?php echo $address; ?>" />
-                                        <span style="color: red; font-weight : 500; font-size:14px;"><?php echo $addressempty ?></span>
+                                        <input type="text" id="form2Example11" name="address" class="form-control"
+                                            value="<?php echo $address; ?>" />
+                                        <span
+                                            style="color: red; font-weight : 500; font-size:14px;"><?php echo $addressempty ?></span>
                                     </div>
 
                                     <div class="form-outline mb-4">
@@ -270,32 +292,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             <option value="Dewas">Dewas</option>
                                             <option value="Indore">Indore</option>
                                         </select>
-                                        <span style="color: red; font-weight : 500; font-size:14px;"><?php echo $cityempty ?></span>
+                                        <span
+                                            style="color: red; font-weight : 500; font-size:14px;"><?php echo $cityempty ?></span>
                                     </div>
 
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="form2Example22">Pincode:</label>
-                                        <input type="number" name="pincode" id="form2Example22" class="form-control" value="<?php echo $pincode; ?>" />
-                                        <span style="color: red; font-weight : 500; font-size:14px;"><?php echo $pincodeempty ?></span>
+                                        <input type="number" name="pincode" id="form2Example22" class="form-control"
+                                            value="<?php echo $pincode; ?>" />
+                                        <span
+                                            style="color: red; font-weight : 500; font-size:14px;"><?php echo $pincodeempty ?></span>
                                     </div>
 
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="form2Example22">State:</label>
-                                        <input type="text" name="state" id="form2Example22" class="form-control" value="<?php echo $state; ?>" />
-                                        <span style="color: red; font-weight : 500; font-size:14px;"><?php echo $stateempty ?></span>
+                                        <input type="text" name="state" id="form2Example22" class="form-control"
+                                            value="<?php echo $state; ?>" />
+                                        <span
+                                            style="color: red; font-weight : 500; font-size:14px;"><?php echo $stateempty ?></span>
                                     </div>
 
 
 
                                     <div class="text-center pt-1 mb-5 pb-1">
-                                        <input type="submit" name="signup" id="form2Example22" class="form-control btn-block fa-lg gradient-custom-2 mb-1" style="color:white" placeholder="Signup" />
+                                        <input type="submit" name="signup" id="form2Example22"
+                                            class="form-control btn-block fa-lg gradient-custom-2 mb-1"
+                                            style="color:white" placeholder="Signup" />
                                         <a class="text-muted" href="#!">Forgot password?</a>
                                     </div>
                                     </form>
 
                                     <div class="d-flex align-items-center justify-content-center pb-4">
                                         <p class="mb-0 me-2">Already have an account?</p>
-                                        <a href="sellerlogin.php"><button type="button" class="btn btn-outline-danger">Login</button></a>
+                                        <a href="sellerlogin.php"><button type="button"
+                                                class="btn btn-outline-danger">Login</button></a>
                                     </div>
 
                                 </div>
@@ -307,7 +337,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
 
     <script src="js/js-jq.js"></script>
 </body>

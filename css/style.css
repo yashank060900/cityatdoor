@@ -1,135 +1,167 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-a{
-    text-decoration: none;
+a {
+  text-decoration: none;
 }
-.nav-bar{
-    justify-content: space-between;
-    align-items: center;
-    background-color: #d63447;
-    color: white;
-}
-
-.nav-bar .logo{
-    font-size: 27px;
+.nav-bar {
+  justify-content: space-between;
+  align-items: center;
+  background-color: #d63447;
+  color: white;
 }
 
-.nav-bar a{
-    color: white;
+.nav-bar .logo {
+  font-size: 27px;
 }
 
-.nav-bar ul{
-    display: flex;
-    list-style: none;
-    margin: auto 0;
+.nav-bar a {
+  color: white;
 }
 
-.nav-bar ul li{
-    margin: 0 20px;
+.nav-bar ul {
+  display: flex;
+  list-style: none;
+  margin: auto 0;
 }
 
-.nav-bar .search-box{
-    display: flex;
-    margin: auto 0;
-    flex : 0.8;
-    border-radius: 60px;
-    background-color: white;
+.nav-bar ul li {
+  margin: 0 20px;
 }
 
-.nav-bar .search-box input{
-    flex: 1;
-    background: transparent;
-    border: none;
-    outline: none;
-    padding-left: 25px;
+.nav-bar .search-box {
+  display: flex;
+  margin: auto 0;
+  flex: 0.8;
+  border-radius: 60px;
+  background-color: white;
 }
 
-::placeholder{
-    padding: 10px;
+.nav-bar .search-box input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding-left: 25px;
 }
 
-.nav-bar .search-box image{
-    padding: 6px;
+::placeholder {
+  padding: 10px;
 }
 
-.top-dropdown{
-    display: none;
+.nav-bar .search-box image {
+  padding: 6px;
 }
 
-.top-dropdown{
-    position: fixed;
-    right: 10px;
-    border-radius: 5px;
-    background-color: white;
-    z-index: 1000000;
-    margin-top: 4px;
+.top-dropdown {
+  display: none;
 }
 
-.top-dropdown ul{
-    padding: 0;
-    list-style: none;
-    display: inline-flex;
-    flex-direction: column;
-    justify-content: center;
+.top-dropdown {
+  position: fixed;
+  right: 10px;
+  border-radius: 5px;
+  background-color: white;
+  z-index: 1000000;
+  margin-top: 4px;
 }
 
-.top-dropdown li{
-    padding: 5px 30px;
+.top-dropdown ul {
+  padding: 0;
+  list-style: none;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.top-dropdown ul .profile{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px;
+.top-dropdown li {
+  padding: 5px 30px;
 }
 
-.top-dropdown ul li .profile img{
-    border-radius: 50%;
+.top-dropdown ul .profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
 }
 
-.top-dropdown ul .profile span{
-    padding-left: 4px;
+.top-dropdown ul li .profile img {
+  border-radius: 50%;
 }
 
-.nav-mobile{
-    display: none;
-    background-color: #d63447;
+.top-dropdown ul .profile span {
+  padding-left: 4px;
 }
 
-.nav-mobile .search-box{
-    display: flex;
-    margin: auto 0;
-    flex: 1;
-    border-radius: 60px;
-    background-color: whitesmoke;
+.nav-mobile {
+  display: none;
+  background-color: #d63447;
 }
 
-.nav-mobile .search-box input{
-    flex: 1;
-    background: transparent;
-    border: none;
-    outline: none;
-    padding-left: 25px;
+.nav-mobile .search-box {
+  display: flex;
+  margin: auto 0;
+  flex: 1;
+  border-radius: 60px;
+  background-color: whitesmoke;
 }
 
-::placeholder{
-    padding: 10px;
+.nav-mobile .search-box input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding-left: 25px;
 }
 
-.nav-mobile .search-box image{
-    padding: 6px;
+::placeholder {
+  padding: 10px;
 }
 
-.center{
-    display: inline-flex;
-    align-content: center;
+.nav-mobile .search-box image {
+  padding: 6px;
 }
 
-.top-dropdown ul li a{
-    font-size: 14px;
-    color: darkgray;
+.center {
+  display: inline-flex;
+  align-content: center;
+}
+
+.top-dropdown ul li a {
+  font-size: 14px;
+  color: darkgray;
+}
+
+.item-category {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-self: center;
+}
+
+.item-row {
+  width: 20%;
+  text-align: center;
+  font-size: 28px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.item-row img {
+  width: 100%;
+}
+.sale {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-self: center;
+}
+.sale-img {
+  width: 20%;
+}
+
+.sale-img img {
+  width: 100%;
 }
